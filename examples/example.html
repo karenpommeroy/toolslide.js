@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Toolslide.js - demo</title>
+	<meta name="author" content="your name" />
+	<meta name="description" content="" />
+	
+	<link rel="stylesheet" href="example.css" type="text/css" />
+	<link rel="stylesheet" href="css/toolslide.css" type="text/css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
+</head>
+<body>
+	<div id="toolslide" class="toolslide">
+		<div class="ts-nav-container">
+			<div class="ts-nav-item" ts-target="first">
+				<i class="glyphicon glyphicon-envelope"></i>
+			</div>
+			<div class="ts-nav-item" ts-target="second">
+				<i class="glyphicon glyphicon-user"></i>
+			</div>
+			<div class="ts-nav-item" ts-target="third">
+				<i class="glyphicon glyphicon-search"></i>
+			</div>
+		</div>
+		<div class="ts-content-container">
+			<div id="first" class="ts-content-item">
+				<div class="example-panel">
+					<span>First panel content goes here</span>
+				</div>
+			</div>
+			<div id="second" class="ts-content-item">
+				<div class="example-panel">
+					<span>Second panel content goes here</span>
+				</div>
+			</div>
+			<div id="third" class="ts-content-item">
+				<div class="example-panel">
+					<span>Third panel content goes here</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div></div>
+<script src="js/toolslide.js"></script>
+<script>
+	var toolslide = toolslide("#toolslide", {
+	});
+</script>
+</body>
+</html>
