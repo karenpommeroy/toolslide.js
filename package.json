@@ -1,11 +1,8 @@
 {
   "name": "toolslide.js",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Minimalistic customizable sliding panel without jQuery",
-  "main": [
-	"dist/js/toolslide.js",
-	"dist/css/toolslide.css"
-  ],
+  "main": "dist/js/toolslide.js",
   "scripts": {},
   "keywords": [
     "slide panel",
