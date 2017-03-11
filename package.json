@@ -1,7 +1,7 @@
 {
   "name": "toolslide.js",
   "version": "1.0",
-  "description": "Simple customizable slide panel without jQuery",
+  "description": "Minimalistic customizable sliding panel without jQuery",
   "main": [
 	"dist/js/toolslide.js",
 	"dist/css/toolslide.css"
@@ -9,7 +9,12 @@
   "scripts": {},
   "keywords": [
     "slide panel",
-	"toggle panel"
+	"sliding panel",
+	"toggle panel",
+	"panel",
+	"slide",
+	"sliding",
+	"toolbox"
   ],
   "author": "karenpommeroy <mkarpins@gmail.com>",
   "license": "MIT",
