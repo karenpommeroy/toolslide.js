@@ -1,0 +1,27 @@
+{
+  "name": "toolslide",
+  "description": "Simple customizable slide panel without jQuery",
+  "main": [
+    "dist/js/toolslide.js",
+    "dist/css/toolslide.css"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "slide panel",
+	"toggle panel"
+  ],
+  "authors": [
+    "karenpommeroy <mkarpins@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "private": false
+}
