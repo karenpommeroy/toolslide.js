@@ -78,6 +78,10 @@ toolslide("#elementId", options);
 ## Examples
 There are some example usages that you can look at to get started. They can be found in the [examples folder](https://github.com/karenpommeroy/toolslide.js/tree/master/examples).
 
+ * [Panel on the left](https://rawgit.com/karenpommeroy/toolslide.js/master/examples/example-left.html)
+ * [Panel on the right](https://rawgit.com/karenpommeroy/toolslide.js/master/examples/example-right.html)
+ * [Panel at the top](https://rawgit.com/karenpommeroy/toolslide.js/master/examples/example-top.html)
+
 ## Options
 `toolslide.js` can accept an options object to alter the way it looks and behaves.
 If no options object is passed default values are used.
