@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="example.css" type="text/css" />
 	<link rel="stylesheet" href="css/toolslide.css" type="text/css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="css/highlight.custom.css">
 </head>
 <body>
 	<div id="toolslide" class="toolslide">
@@ -25,7 +26,17 @@
 		<div class="ts-content-container">
 			<div id="first" class="ts-content-item">
 				<div class="example-panel">
-					<span>First panel content goes here</span>
+					<h5>Panel configuration:</h5>
+<pre><code class="json">{ 
+	position: "right",
+	height: "100%",
+	width: "400px",
+	startOpen: true,
+	animations: {
+		replace: "slidefade 1.0s ease-in-out",
+		toggle: "slide 0.5s ease",
+	}
+}</code></pre>
 				</div>
 			</div>
 			<div id="second" class="ts-content-item">
@@ -42,8 +53,19 @@
 	</div>
 	<div></div>
 <script src="js/toolslide.js"></script>
+<script src="js/highlight.custom.js"></script>
 <script>
+	hljs.configure({tabReplace: '  '});
+	hljs.initHighlightingOnLoad();
 	var toolslide = toolslide("#toolslide", {
+		position: "right",
+		height: "100%",
+		width: "400px",
+		startOpen: true,
+		animations: {
+			replace: "slidefade 1.0s ease-in-out",
+			toggle: "slide 0.5s ease",
+		}
 	});
 </script>
 </body>
