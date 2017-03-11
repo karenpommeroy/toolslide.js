@@ -1,6 +1,7 @@
 {
-  "name": "toolslide",
+  "name": "toolslide.js",
   "description": "Simple customizable slide panel without jQuery",
+  "version": "1.0",
   "main": [
     "dist/js/toolslide.js",
     "dist/css/toolslide.css"

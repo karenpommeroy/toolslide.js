@@ -1,5 +1,5 @@
 {
-  "name": "toolslide",
+  "name": "toolslide.js",
   "version": "1.0",
   "description": "Simple customizable slide panel without jQuery",
   "main": [
