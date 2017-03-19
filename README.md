@@ -64,6 +64,17 @@ Done!
 	</div>
 ```
 
+
+###### Attributes
+
+`toolslide.js` makes use of html attributes to bind navigation elements to respective content.
+
+
+Attribute   | Description                           |
+----------- | ------------------------------------- |
+ts-target   | Specifies id of a target panel triggered with this navigation item
+
+
 #### Initialization
 All you need to do is invoke toolslide on an element:
 ```javascript
@@ -95,11 +106,11 @@ The structure of an options object is as follows:
   startOpen: true,
   closeable: true,
   animations: {
-	replace: "crossfade 0.5s ease-in-out",
+    replace: "crossfade 0.5s ease-in-out",
     toggle: "slide 0.5s ease",
   },
   listeners: {
-	open: function(panel) {},
+    open: function(panel) {},
     close: function(panel) {},
     toggle: function(oldContent, newContent) {}
   }
@@ -112,8 +123,8 @@ Option     | Type    | Description                         | Examples
 position   | string  | Position of the panel on the screen | "top", "bottom", "left", "right"
 height     | string  | Panel height                        | "200px", "20%"
 width      | string  | Panel width                         | "200px", "20%"
-startOpen  | boolean | Open panel after initialization     |
-closeable  | boolean | Allow panel to be closed            |
+startOpen  | boolean | Open panel after initialization     | true, false
+closeable  | boolean | Allow panel to be closed (by clicking active navigation element)           | true, false
 animations.replace   | string  | Animation used when changing active panel | "crossfade 0.5s ease-in-out", "slide 1s ease", "slidefade 2s ease-in-out"
 animations.toggle   | string  | Animation used when panel is opened/closed | "slide 0.5s ease"
 listeners.open | function | Callback fired when panel is opened | function (panel) {...}
@@ -121,8 +132,8 @@ listeners.close | function | Callback fired when panel is closed | function (pan
 listeners.toggle | function | Callback fired when active content is changed | function (old, new) {...}
 
 ## Methods
-Methods are called on slidePanel instances through the slidePanel method itself.
-You can also save the instances to variable for further use.
+Methods are called on toolslide instances.
+You shoud save the instances to variable to have further access to it.
 
 
 #### open()
@@ -137,7 +148,7 @@ Hide the slide panel.
 toolslide.close();
 ```
 
-#### close()
+#### isOpen()
 Check if panel is opened.
 ```javascript
 toolslide.isOpen();
@@ -148,8 +159,8 @@ toolslide.isOpen();
 `toolslide.js` provides custom events for some of it's actions. Appropriate callbacks can be specified in options. 
 
 
-Event       | Description | Arguments
------------ | ----------- | -----------
+Event   | Description                           | Arguments
+------- | ------------------------------------- | ------------------ |
 open    | Fires when panel is opened.           | panelElement
 close   | Fires when panel is closed.           | panelElement
 toggle  | Fires when active content is changed. | oldContentElement, newContentElement
