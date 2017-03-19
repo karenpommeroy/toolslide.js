@@ -78,12 +78,12 @@ ts-target   | Specifies id of a target panel triggered with this navigation item
 #### Initialization
 All you need to do is invoke toolslide on an element:
 ```javascript
-toolslide("#elementId", options);
+var myToolslide = toolslide("#elementId", options);
 ```
 You can also initialize with css selector string:
 
 ```javascript
-toolslide("#elementId", options);
+var myToolslide = toolslide("#elementId", options);
 ```
 
 ## Examples
@@ -127,31 +127,50 @@ startOpen  | boolean | Open panel after initialization     | true, false
 closeable  | boolean | Allow panel to be closed (by clicking active navigation element)           | true, false
 animations.replace   | string  | Animation used when changing active panel | "crossfade 0.5s ease-in-out", "slide 1s ease", "slidefade 2s ease-in-out"
 animations.toggle   | string  | Animation used when panel is opened/closed | "slide 0.5s ease"
-listeners.open | function | Callback fired when panel is opened | function (panel) {...}
-listeners.close | function | Callback fired when panel is closed | function (panel) {...}
-listeners.toggle | function | Callback fired when active content is changed | function (old, new) {...}
+listeners.beforeOpen | function | Callback fired before panel is opened | function (panel) {...}
+listeners.afterOpen | function | Callback fired after panel is opened | function (panel) {...}
+listeners.beforeClose | function | Callback fired before panel is closed | function (panel) {...}
+listeners.afterClose | function | Callback fired after panel is closed | function (panel) {...}
+listeners.beforeToggle | function | Callback fired before active content is changed | function (old, new) {...}
+listeners.afterToggle | function | Callback fired after active content is changed | function (old, new) {...}
 
 ## Methods
-Methods are called on toolslide instances.
-You shoud save the instances to variable to have further access to it.
+Methods are called on toolslide instances. You shoud save the instances to variable to have further access to it.
 
-
-#### open()
+#### void open()
 Show the slide panel.
 ```javascript
 toolslide.open();
 ```
 
-#### close()
+#### void close()
 Hide the slide panel.
 ```javascript
 toolslide.close();
 ```
 
-#### isOpen()
+#### bool isOpen()
 Check if panel is opened.
 ```javascript
 toolslide.isOpen();
+```
+
+#### bool isActive(target)
+Check if target content element is  active. Accepts DOM element as well as just the id. 
+```javascript
+toolslide.isOpen("elementId");
+```
+
+#### void setActiveById(elementId)
+Sets element with specified id as new active item.
+```javascript
+toolslide.setActiveById("elementId");
+```
+
+#### void setActiveByIndex(index)
+Sets element at specified index as active item.
+```javascript
+toolslide.setActiveByIndex(0);
 ```
 
 
@@ -159,11 +178,14 @@ toolslide.isOpen();
 `toolslide.js` provides custom events for some of it's actions. Appropriate callbacks can be specified in options. 
 
 
-Event   | Description                           | Arguments
-------- | ------------------------------------- | ------------------ |
-open    | Fires when panel is opened.           | panelElement
-close   | Fires when panel is closed.           | panelElement
-toggle  | Fires when active content is changed. | oldContentElement, newContentElement
+Event         | Description                             | Arguments
+------------- | --------------------------------------- | ------------------ |
+beforeOpen    | Fires before panel is opened.           | panelElement
+afterOpen     | Fires after panel is opened.            | panelElement
+beforeClose   | Fires before panel is closed.           | panelElement
+afterClose    | Fires after panel is closed.            | panelElement
+beforeToggle  | Fires before active content is changed. | oldContentElement, newContentElement
+afterToggle   | Fires after active content is changed.  | oldContentElement, newContentElement
 
 
 

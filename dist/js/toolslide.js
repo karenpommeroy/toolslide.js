@@ -14,11 +14,6 @@
 		animations: {
 			replace: "crossfade 0.5s ease-in-out",
 			toggle: "slide 0.5s ease",
-		},
-		listeners: {
-			open: function(panel) {},
-			close: function(panel) {},
-			toggle: function(oldContent, newContent) {}
 		}
 	}
 	
@@ -56,7 +51,7 @@
 			this.setWidth(this.config.width);
 			this.setHeight(this.config.height);
 			this.setAnimations(this.config.animations)
-			this.setActivePanel(this.config.activePanel || this.getContentPanel(0));			
+			this.setActiveById(this.config.activePanel || this.__getContentPanel(0));			
 			if (this.config.startOpen) {
 				this.open();
 			}
@@ -97,10 +92,10 @@
 			}
 		},
 		
-		setActivePanel: function(panel) {
+		setActiveById: function(panel) {
 			var previousActivePanel = document.querySelector(".ts-content-item.active");
 			var id;
-
+			
 			if (this.__isDOMElement(panel)) {
 				id = panel.id;
 			}
@@ -115,29 +110,50 @@
 				return;
 			}
 			
+			this.fire("beforeToggle",[previousActivePanel, currentActivePanel]);
 			var activeNavButton = document.querySelector(".ts-nav-item[ts-target='" + id + "']");
 			var currentActivePanel = document.getElementById(id);
 			
 			this.__deactivateAll();
 			currentActivePanel.classList.add("active");
 			activeNavButton.classList.add("active");
-			this.fire("toggle",[previousActivePanel, currentActivePanel]);
+			this.fire("afterToggle",[previousActivePanel, currentActivePanel]);
+		},
+		
+		setActiveByIndex: function(index) {
+			var allPanels = this.contentElement && this.contentElement.children;
+			this.setActiveById(allPanels[index] && allPanels[index].id)
 		},
 		
 		open: function() {
+			this.fire("beforeOpen", [this.targetElement]);
 			this.targetElement.classList.remove("closed");
 			this.targetElement.classList.add("open");
-			this.fire("open", [this.targetElement]);
+			this.fire("afterOpen", [this.targetElement]);
 		},
 		
 		close: function() {
+			this.fire("beforeClose", [this.targetElement]);
 			this.targetElement.classList.remove("open");
 			this.targetElement.classList.add("closed");
-			this.fire("close", [this.targetElement]);
+			this.fire("afterClose", [this.targetElement]);
 		},
 		
 		isOpen: function() {
 			return this.targetElement.classList.contains("open");
+		},
+		
+		isActive: function(target) {
+			if (this.__isString(target)) {
+				target = document.getElementById(target);
+			}
+			else if (this.__isDOMElement(target)) {
+			}
+			else {
+				return false;
+			}
+			
+			return target.classList.contains("active");
 		},
 		
 		attachEventListeners: function() {
@@ -153,15 +169,11 @@
 			if (!this.isOpen()) {
 				this.open();
 			}
-			else if (this.__isElementActive(event.currentTarget) && this.config.closeable) {
+			else if (this.isActive(event.currentTarget) && this.config.closeable) {
 				this.close();
 			}
 			
-			this.setActivePanel(event.currentTarget.getAttribute("ts-target"));
-		},
-		
-		getContentPanel: function(index) {
-			return this.contentElement && this.contentElement.children && this.contentElement.children[index];
+			this.setActiveById(event.currentTarget.getAttribute("ts-target"));
 		},
 		
 		fire: function(eventName, args) {
@@ -184,8 +196,8 @@
 			}
 		},
 		
-		__isElementActive: function(element) {
-			return element.classList.contains("active");
+		__getContentPanel: function(index) {
+			return this.contentElement && this.contentElement.children && this.contentElement.children[index];
 		},
 		
 		__hasValidId: function (element) {
