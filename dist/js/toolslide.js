@@ -10,7 +10,11 @@
 		height: "100%",
 		width: "25%",
 		startOpen: true,
+		sticky: true,
 		closeable: true,
+		autoclose: true,
+		autocloseDelay: 5,
+		clickOutsideToClose: true,
 		animations: {
 			replace: "crossfade 0.5s ease-in-out",
 			toggle: "slide 0.5s ease",
@@ -42,7 +46,7 @@
 			this.contentElement = document.querySelector("#" + this.targetElement.id + " .ts-content-container");
 			this.navElement = document.querySelector("#" + this.targetElement.id + " .ts-nav-container")
 			
-			this.applyConfig(config);
+			this.applyConfig(this.config);
 			this.attachEventListeners();
 		},
 		
@@ -50,7 +54,9 @@
 			this.setPosition(this.config.position);
 			this.setWidth(this.config.width);
 			this.setHeight(this.config.height);
-			this.setAnimations(this.config.animations)
+			this.setSticky(this.config.sticky);
+			this.setAnimations(this.config.animations);
+			this.setAutoClose();
 			this.setActiveById(this.config.activePanel || this.__getContentPanel(0));			
 			if (this.config.startOpen) {
 				this.open();
@@ -70,6 +76,17 @@
 		
 		setWidth: function(width) {
 			this.targetElement.style.width = width;
+		},
+		
+		setAutoClose: function(delay) {
+			if (this.autocloseTimeout) {
+				clearTimeout(this.autocloseTimeout);
+			}
+			this.autocloseTimeout = setTimeout(this.close, delay * 1000);
+		},
+		
+		setSticky: function(sticky) {
+			sticky ? this.targetElement.classList.add("sticky") : this.targetElement.classList.remove("sticky");
 		},
 		
 		setAnimations: function(animations) {
@@ -163,6 +180,11 @@
 			while (l--) {
 				navButtons[l].onclick = this.onNavButtonClick.bind(this);
 			}
+			
+			if (this.autocloseTimeout) {
+				this.targetElement.onmouseover = this.onMouseOver.bind(this);
+				this.targetElement.onmouseover = this.onMouseOut.bind(this);
+			}
 		},
 		
 		onNavButtonClick: function(event) {
@@ -174,6 +196,14 @@
 			}
 			
 			this.setActiveById(event.currentTarget.getAttribute("ts-target"));
+		},
+		
+		onMouseOver: function(event) {
+			clearTimeout(this.autocloseTimeout);
+		},
+		
+		onMouseOut: function(event) {
+			this.setAutoClose(this.config.autocloseDelay);
 		},
 		
 		fire: function(eventName, args) {

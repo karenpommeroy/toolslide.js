@@ -6,12 +6,14 @@
 	<meta name="description" content="" />
 	
 	<link rel="stylesheet" href="example.css" type="text/css" />
-	<link rel="stylesheet" href="css/toolslide.css" type="text/css" />
+	<link rel="stylesheet" href="../dist/css/toolslide.css" type="text/css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
 	<link rel="stylesheet" href="css/highlight.custom.css">
 </head>
 <body>
-	<div id="toolslide" class="toolslide">
+	<div id="toolslide" class="toolslide"
+		ts-position="left" ts-width="40%" ts-height="100%" ts-closeable="true" ts-start-open="true"
+		ts-sticky="true" ts-autoclose="true" ts-autoclose-delay="5" ts-click-outside-to-close="false">
 		<div class="ts-nav-container">
 			<div class="ts-nav-item" ts-target="first">
 				<i class="glyphicon glyphicon-envelope"></i>
@@ -26,7 +28,10 @@
 		<div class="ts-content-container">
 			<div id="first" class="ts-content-item">
 				<div class="example-panel">
-					<span>This is the panel with default configuration.</span>
+					<h5>Panel configuration (in HTML):</h5>
+					<pre><code class="html">&lt;div id=&quot;toolslide&quot; class=&quot;toolslide&quot;
+ts-position=&quot;left&quot; ts-width=&quot;40%&quot; ts-height=&quot;100%&quot; ts-closeable=&quot;true&quot; ts-start-open=&quot;true&quot;
+ts-sticky=&quot;true&quot; ts-autoclose=&quot;true&quot; ts-autoclose-delay=&quot;5&quot; ts-click-outside-to-close=&quot;false&quot;&gt;&lt;/div&gt;</code></pre>
 				</div>
 			</div>
 			<div id="second" class="ts-content-item">
@@ -41,10 +46,13 @@
 			</div>
 		</div>
 	</div>
-	<div></div>
-<script src="js/toolslide.js"></script>
+	<div id="videos">
+	</div>
+<script src="../dist/js/toolslide.js"></script>
 <script src="js/highlight.custom.js"></script>
 <script>
+	hljs.configure({tabReplace: '  '});
+	hljs.initHighlightingOnLoad();
 	var toolslide = toolslide("#toolslide", {
 	});
 </script>

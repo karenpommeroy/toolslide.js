@@ -6,9 +6,13 @@ body {
     transition: all 0.5s ease;
 }
 .toolslide {
-	position: fixed;
+	position: absolute;
 	color: #fff;
 	background-color: #eaeaea;
+}
+
+.toolslide.sticky {
+	position: fixed;
 }
 
 .toolslide.ts-left {
@@ -27,13 +31,35 @@ body {
 	bottom: 0px;
 }
 
+.toolslide #ts-collapsed-edge-box {
+	position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.toolslide.ts-right #ts-collapsed-edge-box {
+    right: 30px;
+}
+
+.toolslide.ts-left #ts-collapsed-edge-box {
+    left: 30px;
+}
+
+.toolslide.ts-top #ts-collapsed-edge-box {
+    top: 30px;
+}
+
+.toolslide.ts-bottom #ts-collapsed-edge-box {
+    bottom: 30px;
+}
+
 .toolslide .ts-nav-container {
 	position: absolute;
 }
 
 .toolslide.ts-left .ts-nav-container {
 	right: -50px;
-	top: 100px;
+	top: 15%;
 }
 
 .toolslide.ts-right .ts-nav-container {
