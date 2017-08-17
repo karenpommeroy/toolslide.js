@@ -5,6 +5,8 @@
 }('toolslide', this, function () {
 	'use strict';
 	
+    var TOOLSLIDE_CLASS = "toolslide";
+    
 	var defaults = {
 		position: "left",
 		height: "100%",
@@ -12,7 +14,7 @@
 		startOpen: true,
 		sticky: true,
 		closeable: true,
-		autoclose: true,
+		autoclose: false,
 		autocloseDelay: 5,
 		clickOutsideToClose: true,
 		animations: {
@@ -42,9 +44,9 @@
 			else {
 				throw new Error("Incorrect type: target element must be DOM node or string css selector");
 			}
-			
-			this.contentElement = document.querySelector("#" + this.targetElement.id + " .ts-content-container");
-			this.navElement = document.querySelector("#" + this.targetElement.id + " .ts-nav-container")
+			this.targetElement.classList.add(TOOLSLIDE_CLASS);
+			this.contentElement = this.targetElement.querySelector(".ts-content-container");
+			this.navElement = this.targetElement.querySelector(".ts-nav-container");
 			
 			this.applyConfig(this.config);
 			this.attachEventListeners();
@@ -56,7 +58,9 @@
 			this.setHeight(this.config.height);
 			this.setSticky(this.config.sticky);
 			this.setAnimations(this.config.animations);
-			this.setAutoClose();
+			if (config.autoclose) {
+                this.setAutoClose();
+            }
 			this.setActiveById(this.config.activePanel || this.__getContentPanel(0));			
 			if (this.config.startOpen) {
 				this.open();
@@ -110,7 +114,7 @@
 		},
 		
 		setActiveById: function(panel) {
-			var previousActivePanel = document.querySelector(".ts-content-item.active");
+			var previousActivePanel = this.targetElement.querySelector(".ts-content-item.active");
 			var id;
 			
 			if (this.__isDOMElement(panel)) {
@@ -128,8 +132,8 @@
 			}
 			
 			this.fire("beforeToggle",[previousActivePanel, currentActivePanel]);
-			var activeNavButton = document.querySelector(".ts-nav-item[ts-target='" + id + "']");
-			var currentActivePanel = document.getElementById(id);
+			var activeNavButton = this.targetElement.querySelector(".ts-nav-item[ts-target='" + id + "']");
+			var currentActivePanel = this.targetElement.querySelector("#" + id);
 			
 			this.__deactivateAll();
 			currentActivePanel.classList.add("active");

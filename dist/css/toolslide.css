@@ -12,7 +12,7 @@ body {
 }
 
 .toolslide.sticky {
-	position: fixed;
+	position: relative;
 }
 
 .toolslide.ts-left {
@@ -21,6 +21,7 @@ body {
 
 .toolslide.ts-right {
 	right: 0px;
+    position: absolute;
 }
 
 .toolslide.ts-top {
