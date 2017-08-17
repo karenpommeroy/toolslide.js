@@ -6,19 +6,26 @@
   "scripts": {},
   "keywords": [
     "slide panel",
-	"sliding panel",
-	"toggle panel",
-	"panel",
-	"slide",
-	"sliding",
-	"toolbox"
+    "sliding panel",
+    "toggle panel",
+    "panel",
+    "slide",
+    "sliding",
+    "toolbox"
   ],
   "author": "karenpommeroy <mkarpins@gmail.com>",
   "license": "MIT",
   "repository": {
-	"type" : "git",
-	"url" : "https://github.com/karenpommeroy/toolslide.js"
+    "type": "git",
+    "url": "https://github.com/karenpommeroy/toolslide.js"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-cssmin": "^2.2.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-umd": "^2.4.0"
+  },
   "dependencies": {}
 }

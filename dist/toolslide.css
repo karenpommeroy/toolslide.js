@@ -1,57 +1,56 @@
-body {
-	-webkit-transition: all 0.5s ease;                  
-    -moz-transition: all 0.5s ease;                 
-    -o-transition: all 0.5s ease;   
-    -ms-transition: all 0.5s ease;          
-    transition: all 0.5s ease;
-}
 .toolslide {
 	position: absolute;
-	color: #fff;
-	background-color: #eaeaea;
-}
-
-.toolslide.sticky {
-	position: relative;
+    overflow: hidden;
+    pointer-events: none;
 }
 
 .toolslide.ts-left {
 	left: 0px;
+    top: 0px;
 }
 
 .toolslide.ts-right {
-	right: 0px;
-    position: absolute;
+    right: 0px;
+    top: 0px;
 }
 
 .toolslide.ts-top {
 	top: 0px;
+    left: 0px;
 }
 
 .toolslide.ts-bottom {
 	bottom: 0px;
+    left: 0px;
 }
 
-.toolslide #ts-collapsed-edge-box {
-	position: fixed;
-    width: 100%;
+.toolslide .ts-container {
     height: 100%;
+    width: 100%;
+    position: absolute;
+    pointer-events: all;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;                  
+    -moz-transition: all 0.5s ease;                 
+    -o-transition: all 0.5s ease;   
+    -ms-transition: all 0.5s ease;          
+    
 }
 
-.toolslide.ts-right #ts-collapsed-edge-box {
-    right: 30px;
+.toolslide.ts-left .ts-container {
+    left: 0;
 }
 
-.toolslide.ts-left #ts-collapsed-edge-box {
-    left: 30px;
+.toolslide.ts-right .ts-container {
+    right: 0;
 }
 
-.toolslide.ts-top #ts-collapsed-edge-box {
-    top: 30px;
+.toolslide.ts-top .ts-container {
+    top: 0;
 }
 
-.toolslide.ts-bottom #ts-collapsed-edge-box {
-    bottom: 30px;
+.toolslide.ts-bottom .ts-container {
+    bottom: 0;
 }
 
 .toolslide .ts-nav-container {
@@ -59,62 +58,37 @@ body {
 }
 
 .toolslide.ts-left .ts-nav-container {
-	right: -50px;
+	left: 100%;
 	top: 15%;
+    margin-left: -1px;
 }
 
 .toolslide.ts-right .ts-nav-container {
-	left: -50px;
-	top: 100px;
+	right: 100%;
+	top: 15%;
+    margin-right: -1px;
 }
 
 .toolslide.ts-top .ts-nav-container {
-	bottom: -50px;
-	left: 100px;
+	top: 100%;
+	left: 15%;
+    margin-top: -1px;
 }
 
 .toolslide.ts-bottom .ts-nav-container {
-	top: -50px;
-	left: 100px;
+	bottom: 100%;
+	left: 15%;
+    margin-bottom: -1px;
 }
 
 .toolslide .ts-nav-item {
-	width: 50px;
-    height: 50px;
 	box-sizing: border-box;
 	background-color: #fff;
 	color: #2f353f;
 	cursor: pointer;
-}
-
-.toolslide.ts-left .ts-nav-item {
-	border-top: 1px solid #2f353f;
-    border-bottom: 1px solid #2f353f;
-    border-right: 1px solid #2f353f;
-	margin: 5px 0px;
-}
-
-.toolslide.ts-right .ts-nav-item {
-	border-top: 1px solid #2f353f;
-    border-bottom: 1px solid #2f353f;
-    border-left: 1px solid #2f353f;
-	margin: 5px 0px;
-}
-
-.toolslide.ts-top .ts-nav-item {
-    border-bottom: 1px solid #2f353f;
-    border-left: 1px solid #2f353f;
-	border-right: 1px solid #2f353f;
-	display: inline-block;
-	margin: 0px 5px;
-}
-
-.toolslide.ts-bottom .ts-nav-item {
-    border-top: 1px solid #2f353f;
-    border-left: 1px solid #2f353f;
-	border-right: 1px solid #2f353f;
-	display: inline-block;
-	margin: 0px 5px;
+    padding: 0px 10px;
+    border: 1px solid #2f353f;
+    display: inline-block;
 }
 
 .toolslide .ts-nav-item:hover {
@@ -125,6 +99,14 @@ body {
 .toolslide .ts-nav-item.active {
 	background-color: #2f353f;
 	color: #fff;
+}
+
+.toolslide.ts-left .ts-nav-item, .toolslide.ts-right .ts-nav-item {
+	margin: 5px 0px;
+}
+
+.toolslide.ts-top .ts-nav-item, .toolslide.ts-bottom .ts-nav-item {
+	margin: 0px 5px;
 }
 
 .toolslide .ts-content-container {
@@ -144,7 +126,7 @@ body {
 	opacity: 1;
 }
 
-.toolslide.ts-left.open,
+.toolslide.ts-left.open .ts-container,
 .toolslide.ts-left .ts-content-item.active.slide,
 .toolslide.ts-left .ts-content-item.active.slidefade {
 	transform: translate(0,0);
@@ -154,7 +136,7 @@ body {
     -ms-transform: translate(0,0);
 }
 
-.toolslide.ts-left.closed,
+.toolslide.ts-left.closed .ts-container,
 .toolslide.ts-left .ts-content-item.slide,
 .toolslide.ts-left .ts-content-item.slidefade {
     transform: translate(-100%,0);
@@ -164,7 +146,7 @@ body {
     -ms-transform: translate(-100%,0);
 }
 
-.toolslide.ts-right.open,
+.toolslide.ts-right.open .ts-container,
 .toolslide.ts-right .ts-content-item.active.slide,
 .toolslide.ts-right .ts-content-item.active.slidefade {
 	transform: translate(0,0);
@@ -174,7 +156,7 @@ body {
     -ms-transform: translate(0,0);
 }
 
-.toolslide.ts-right.closed,
+.toolslide.ts-right.closed .ts-container,
 .toolslide.ts-right .ts-content-item.slide,
 .toolslide.ts-right .ts-content-item.slidefade {
     transform: translate(100%,0);
@@ -184,7 +166,7 @@ body {
     -ms-transform: translate(100%,0);
 }
 
-.toolslide.ts-top.open,
+.toolslide.ts-top.open .ts-container,
 .toolslide.ts-top .ts-content-item.active.slide,
 .toolslide.ts-top .ts-content-item.active.slidefade {
 	transform: translate(0,0);
@@ -194,7 +176,7 @@ body {
     -ms-transform: translate(0,0);
 }
 
-.toolslide.ts-top.closed,
+.toolslide.ts-top.closed .ts-container,
 .toolslide.ts-top .ts-content-item.slide,
 .toolslide.ts-top .ts-content-item.slidefade {
     transform: translate(0,-100%);
@@ -204,7 +186,7 @@ body {
     -ms-transform: translate(0,-100%);
 }
 
-.toolslide.ts-bottom.open,
+.toolslide.ts-bottom.open .ts-container,
 .toolslide.ts-bottom .ts-content-item.active.slide,
 .toolslide.ts-bottom .ts-content-item.active.slidefade {
 	transform: translate(0,0);
@@ -214,7 +196,7 @@ body {
     -ms-transform: translate(0,0);
 }
 
-.toolslide.ts-bottom.closed,
+.toolslide.ts-bottom.closed .ts-container,
 .toolslide.ts-bottom .ts-content-item.slide,
 .toolslide.ts-bottom .ts-content-item.slidefade {
     transform: translate(0,100%);
@@ -222,40 +204,4 @@ body {
     -moz-transform: translate(0,100%);
     -o-transform: translate(0,100%);
     -ms-transform: translate(0,100%);
-}
-
-@-webkit-keyframes zoomIn {
-	from {
-		opacity: 0;
-		-webkit-transform: scale3d(.3, .3, .3);
-		transform: scale3d(.3, .3, .3);
-	}
-
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes zoomIn {
-	from {
-		opacity: 0;
-		-webkit-transform: scale3d(.3, .3, .3);
-		transform: scale3d(.3, .3, .3);
-	}
-
-	50% {
-		opacity: 1;
-	}
-}
-
-.zoomIn {
-	-webkit-animation-name: zoomIn;
-	animation-name: zoomIn;
-}
-
-.animated {
-	-webkit-animation-duration: 1s;
-	animation-duration: 1s;
-	-webkit-animation-fill-mode: both;
-	animation-fill-mode: both;
 }
