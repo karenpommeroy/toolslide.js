@@ -6,53 +6,45 @@
 	<meta name="description" content="" />
 	
 	<link rel="stylesheet" href="example.css" type="text/css" />
-	<link rel="stylesheet" href="../dist/css/toolslide.css" type="text/css" />
+	<link rel="stylesheet" href="../dist/toolslide.css" type="text/css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
-	<link rel="stylesheet" href="css/highlight.custom.css">
 </head>
 <body>
-	<div id="toolslide"
-		ts-position="left" ts-width="40%" ts-height="100%" ts-closeable="true" ts-start-open="true"
-		ts-sticky="true" ts-autoclose="true" ts-autoclose-delay="5" ts-click-outside-to-close="false">
-		<div class="ts-nav-container">
-			<div class="ts-nav-item" ts-target="first">
-				<i class="glyphicon glyphicon-envelope"></i>
-			</div>
-			<div class="ts-nav-item" ts-target="second">
-				<i class="glyphicon glyphicon-user"></i>
-			</div>
-			<div class="ts-nav-item" ts-target="third">
-				<i class="glyphicon glyphicon-search"></i>
-			</div>
-		</div>
-		<div class="ts-content-container">
-			<div id="first" class="ts-content-item">
-				<div class="example-panel">
-					<h5>Panel configuration (in HTML):</h5>
-					<pre><code class="html">&lt;div id=&quot;toolslide&quot; class=&quot;toolslide&quot;
-ts-position=&quot;left&quot; ts-width=&quot;40%&quot; ts-height=&quot;100%&quot; ts-closeable=&quot;true&quot; ts-start-open=&quot;true&quot;
-ts-sticky=&quot;true&quot; ts-autoclose=&quot;true&quot; ts-autoclose-delay=&quot;5&quot; ts-click-outside-to-close=&quot;false&quot;&gt;&lt;/div&gt;</code></pre>
-				</div>
-			</div>
-			<div id="second" class="ts-content-item">
-				<div class="example-panel">
-					<span>Second panel content goes here</span>
-				</div>
-			</div>
-			<div id="third" class="ts-content-item">
-				<div class="example-panel">
-					<span>Third panel content goes here</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="videos">
-	</div>
-<script src="../dist/js/toolslide.js"></script>
-<script src="js/highlight.custom.js"></script>
+    <div id="toolslide">
+      <div class="ts-container">
+        <div class="ts-nav-container">
+            <div class="ts-nav-item" ts-target="first">
+                <i class="glyphicon glyphicon-envelope"></i>
+            </div>
+            <div class="ts-nav-item" ts-target="second">
+                <i class="glyphicon glyphicon-user"></i>
+            </div>
+            <div class="ts-nav-item" ts-target="third">
+                <i class="glyphicon glyphicon-search"></i>
+            </div>
+        </div>
+        <div class="ts-content-container">
+            <div id="first" class="ts-content-item">
+                <div class="example-panel">
+                    <h3>Fancy header</h3>
+                    <p>Even fancier paragraph<p>
+                </div>
+            </div>
+            <div id="second" class="ts-content-item">
+                <div class="example-panel">
+                    <span>Second panel content goes here</span>
+                </div>
+            </div>
+            <div id="third" class="ts-content-item">
+                <div class="example-panel">
+                    <span>Third panel content goes here</span>
+                </div>
+            </div>
+        </div>
+      </div>  
+    </div>
+<script src="../dist/toolslide.js"></script>
 <script>
-	hljs.configure({tabReplace: '  '});
-	hljs.initHighlightingOnLoad();
 	var toolslide = toolslide("#toolslide", {
 	});
 </script>

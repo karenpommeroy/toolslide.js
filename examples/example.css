@@ -1,11 +1,19 @@
-html, body {
+body {
 	margin: 0px;
-	height: 100%;
-	width: 100%;
+    color: #2f353f;
+}
+
+.example-container {
+    width: 800px;
+    height: 600px;
+    margin: 5% auto 0px auto;
+    border: 1px solid #2f353f;
+    position: relative;
 }
 
 .example-panel {
 	padding: 10px;
+    color: #fff;
 }
 
 i.glyphicon {

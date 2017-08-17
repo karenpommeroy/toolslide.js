@@ -10,8 +10,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
 </head>
 <body>
-    <div id="toolslide">
-        <div class="ts-container">
+    <div class="example-container">
+        <div id="toolslide">
+          <div class="ts-container">
             <div class="ts-nav-container">
                 <div class="ts-nav-item" ts-target="first">
                     <i class="glyphicon glyphicon-envelope"></i>
@@ -27,12 +28,7 @@
                 <div id="first" class="ts-content-item">
                     <div class="example-panel">
                         <h5>Panel configuration:</h5>
-    <pre><code class="json">{
-        position: "top",
-        startOpen: false,
-        width: "100%",
-        height: "250px"
-    }</code></pre>
+                        <textarea>Some fancy text here...</textarea>
                     </div>
                 </div>
                 <div id="second" class="ts-content-item">
@@ -46,15 +42,20 @@
                     </div>
                 </div>
             </div>
+          </div>
         </div>
-	</div>
+    </div>
 <script src="../dist/toolslide.js"></script>
 <script>
 	var toolslide = toolslide("#toolslide", {
-		position: "top",
-		startOpen: false,
+		position: "bottom",
+		height: "150px",
 		width: "100%",
-		height: "250px"
+		startOpen: true,
+		animations: {
+			replace: "slidefade 1.0s ease-in-out",
+			toggle: "slide 0.5s ease",
+		}
 	});
 </script>
 </body>
