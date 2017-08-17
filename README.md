@@ -39,16 +39,17 @@ Done!
 ## Usage
 #### Including files:
 
-```html
+```xml
 <link rel="stylesheet" href="/path/to/toolslide.css">
 <script src="/path/to/toolslide.js"></script>
 ```
 
 #### Required HTML structure
 
-```html
-<div id="toolslide" class="toolslide">
-		<div class="ts-nav-container">
+```xml
+<div id="toolslide">
+	<div class="ts-container">
+        <div class="ts-nav-container">
 			<div class="ts-nav-item" ts-target="first">
 			</div>
 			<!-- Add more navigation buttons here -->
@@ -62,6 +63,7 @@ Done!
 			<!-- Add more content panels here -->
 		</div>
 	</div>
+</div>
 ```
 
 
@@ -92,19 +94,23 @@ There are some example usages that you can look at to get started. They can be f
  * [Panel on the left](https://rawgit.com/karenpommeroy/toolslide.js/master/examples/example-left.html)
  * [Panel on the right](https://rawgit.com/karenpommeroy/toolslide.js/master/examples/example-right.html)
  * [Panel at the top](https://rawgit.com/karenpommeroy/toolslide.js/master/examples/example-top.html)
+ * [Panel at the bottom](https://rawgit.com/karenpommeroy/toolslide.js/master/examples/example-bottom.html)
 
 ## Options
 `toolslide.js` can accept an options object to alter the way it looks and behaves.
 If no options object is passed default values are used.
 The structure of an options object is as follows:
 
-```
+```css
 {
   position: left",
   height: "100%",
   width: "300px",
   startOpen: true,
   closeable: true,
+  autoclose: false,
+  autocloseDelay: 5000,
+  clickOutsideToClose: true,
   animations: {
     replace: "crossfade 0.5s ease-in-out",
     toggle: "slide 0.5s ease",
@@ -125,6 +131,9 @@ height     | string  | Panel height                        | "200px", "20%"
 width      | string  | Panel width                         | "200px", "20%"
 startOpen  | boolean | Open panel after initialization     | true, false
 closeable  | boolean | Allow panel to be closed (by clicking active navigation element)           | true, false
+autoclose  | boolean | Allow panel to be auto closed (only when mouse cursor is outside)          | true, false
+autocloseDelay  | int | Auto close delay in miliseconds           | 5000
+clickOutsideToClose  | boolean | Allow panel to be closed when clicked outside           | true, false
 animations.replace   | string  | Animation used when changing active panel | "crossfade 0.5s ease-in-out", "slide 1s ease", "slidefade 2s ease-in-out"
 animations.toggle   | string  | Animation used when panel is opened/closed | "slide 0.5s ease"
 listeners.beforeOpen | function | Callback fired before panel is opened | function (panel) {...}
