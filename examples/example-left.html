@@ -10,24 +10,20 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
 </head>
 <body>
+  <div class="ts-embed-container">
     <div id="toolslide">
       <div class="ts-container">
         <div class="ts-nav-container">
-            <div class="ts-nav-item" ts-target="first">
-                <i class="glyphicon glyphicon-envelope"></i>
-            </div>
-            <div class="ts-nav-item" ts-target="second">
-                <i class="glyphicon glyphicon-user"></i>
-            </div>
-            <div class="ts-nav-item" ts-target="third">
-                <i class="glyphicon glyphicon-search"></i>
-            </div>
+            
         </div>
         <div class="ts-content-container">
             <div id="first" class="ts-content-item">
                 <div class="example-panel">
-                    <h3>Fancy header</h3>
-                    <p>Even fancier paragraph<p>
+                    <h3>Simple panel</h3>
+                    <ul>
+                        <li>without navigation - just toggle button</li>
+                        <li>embeded within content (content moves when menu is toggled)</li>
+                    </ul>
                 </div>
             </div>
             <div id="second" class="ts-content-item">
@@ -43,9 +39,25 @@
         </div>
       </div>  
     </div>
+    <div id="main">
+        <div class="nav">
+            <div type="button" id="toggle-menu-button" class="pull-left">
+                <i class="glyphicon glyphicon-menu-hamburger"></i>
+            </div>
+        </div>
+        <div class="content">
+            <div class="col-xs-12">
+                <h3>This is a heading</h3>
+                <p>This is some text...</p>
+            </div>
+        </div>
+    </div>
 <script src="../dist/toolslide.js"></script>
 <script>
 	var toolslide = toolslide("#toolslide", {
+        toggleButton: "#toggle-menu-button",
+        startOpen: true,
+        embed: true
 	});
 </script>
 </body>

@@ -11,41 +11,41 @@
 </head>
 <body>
     <div class="example-container">
-        <div>
-            <span>This is some example text containing no meaningful message at all...</span>
-        </div>
-        <div id="toolslide">
-          <div class="ts-container">
-            <div class="ts-nav-container">
-                <div class="ts-nav-item" ts-target="first">
-                    <i class="glyphicon glyphicon-envelope"></i>
+        <div class="ts-embed-container">
+            <p>This is some example text containing no meaningful message at all...</p>
+            <div id="toolslide">
+              <div class="ts-container">
+                <div class="ts-nav-container">
+                    <div class="ts-nav-item" ts-target="first">
+                        <i class="glyphicon glyphicon-envelope"></i>
+                    </div>
+                    <div class="ts-nav-item" ts-target="second">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </div>
+                    <div class="ts-nav-item" ts-target="third">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </div>
                 </div>
-                <div class="ts-nav-item" ts-target="second">
-                    <i class="glyphicon glyphicon-user"></i>
+                <div class="ts-content-container">
+                    <div id="first" class="ts-content-item">
+                        <div class="example-panel">
+                            <h5>Panel configuration:</h5>
+                            <textarea>Some fancy text here...</textarea>
+                        </div>
+                    </div>
+                    <div id="second" class="ts-content-item">
+                        <div class="example-panel">
+                            <span>Second panel content goes here</span>
+                        </div>
+                    </div>
+                    <div id="third" class="ts-content-item">
+                        <div class="example-panel">
+                            <span>Third panel content goes here</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="ts-nav-item" ts-target="third">
-                    <i class="glyphicon glyphicon-search"></i>
-                </div>
+              </div>
             </div>
-            <div class="ts-content-container">
-                <div id="first" class="ts-content-item">
-                    <div class="example-panel">
-                        <h5>Panel configuration:</h5>
-                        <textarea>Some fancy text here...</textarea>
-                    </div>
-                </div>
-                <div id="second" class="ts-content-item">
-                    <div class="example-panel">
-                        <span>Second panel content goes here</span>
-                    </div>
-                </div>
-                <div id="third" class="ts-content-item">
-                    <div class="example-panel">
-                        <span>Third panel content goes here</span>
-                    </div>
-                </div>
-            </div>
-          </div>
         </div>
     </div>
 <script src="../dist/toolslide.js"></script>
@@ -59,7 +59,8 @@
 		animations: {
 			replace: "slidefade 1.0s ease-in-out",
 			toggle: "slide 0.5s ease",
-		}
+		},
+        embed: true
 	});
 </script>
 </body>

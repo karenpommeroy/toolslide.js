@@ -8,6 +8,10 @@ var defaults = {
     width: "25%",
     startOpen: true,
     closeable: true,
+    toggleButton: "",
+    embed: false,
+    navigationItemWidth: "50px",
+    navigationItemHeight: "50px",
     autoclose: false,
     autocloseDelay: 5000,
     clickOutsideToClose: true,
@@ -42,7 +46,6 @@ Toolslide.prototype = {
         this.containerElement = this.targetElement.querySelector(".ts-container");
         this.contentElement = this.targetElement.querySelector(".ts-content-container");
         this.navElement = this.targetElement.querySelector(".ts-nav-container");
-        
         this.__applyConfig(this.config);
         this.__attachEventListeners();
     },
@@ -62,6 +65,22 @@ Toolslide.prototype = {
         this.targetElement.style.width = width;
         if (this.config.position === "left"  || this.config.position === "right") {
             this.containerElement.style.width = "calc(100% - " + this.navElement.clientWidth + "px)";
+        }
+    },
+    
+    setNavigationSize: function(width, height) {
+        if (this.config.position === "left"  || this.config.position === "right") {
+            this.navElement.style.width = width;
+        }
+        if (this.config.position === "top"  || this.config.position === "bottom") {
+            this.navElement.style.height = height;
+        }
+        var navItems = this.navElement.querySelectorAll(".ts-nav-item"),
+            l = navItems.length;
+            
+        while (l--) {
+            navItems[l].style.width = width;
+            navItems[l].style.height = height;
         }
     },
     
@@ -95,8 +114,8 @@ Toolslide.prototype = {
         var currentActivePanel = this.targetElement.querySelector("#" + id);
         
         this.__deactivateAll();
-        currentActivePanel.classList.add("active");
-        activeNavButton.classList.add("active");
+        currentActivePanel &&currentActivePanel.classList.add("active");
+        activeNavButton && activeNavButton.classList.add("active");
         this.fire("afterToggle",[previousActivePanel, currentActivePanel]);
     },
     
@@ -109,6 +128,7 @@ Toolslide.prototype = {
         this.fire("beforeOpen", [this.targetElement]);
         this.targetElement.classList.remove("closed");
         this.targetElement.classList.add("open");
+        this.__updateEmbeding();
         this.fire("afterOpen", [this.targetElement]);
     },
     
@@ -116,6 +136,7 @@ Toolslide.prototype = {
         this.fire("beforeClose", [this.targetElement]);
         this.targetElement.classList.remove("open");
         this.targetElement.classList.add("closed");
+        this.__updateEmbeding()
         this.fire("afterClose", [this.targetElement]);
     },
     
@@ -137,20 +158,18 @@ Toolslide.prototype = {
     },
     
     __applyConfig: function(config) {
-        this.setPosition(this.config.position);
-        this.setWidth(this.config.width);
-        this.setHeight(this.config.height);
-        this.__setAnimations(this.config.animations);
+        this.setPosition(config.position);
+        config.startOpen ? this.open() : this.close();
+        this.setNavigationSize(config.navigationItemWidth, config.navigationItemHeight);
+        
+        this.setWidth(config.width);
+        this.setHeight(config.height);
+        this.__updateEmbeding();
         if (config.autoclose) {
             this.setAutoClose();
         }
+        this.__setAnimations(config.animations);
         this.setActiveById(this.config.activePanel || this.__getContentPanel(0));			
-        if (this.config.startOpen) {
-            this.open();
-        }
-        else {
-            this.close();
-        }
     },
     
     __attachEventListeners: function() {
@@ -167,6 +186,30 @@ Toolslide.prototype = {
         }
         if (this.config.clickOutsideToClose) {
             document.addEventListener("click", this.onDocumentClick.bind(this), false);
+        }
+        if (this.config.toggleButton) {
+            this.toggleButtonElement = document.querySelector(this.config.toggleButton);
+            if (this.toggleButtonElement) {
+                this.toggleButtonElement.onclick = this.onToggleButtonClick.bind(this);
+            }
+        }
+    },
+    
+    __updateEmbeding: function() {
+        if (!this.config.embed)  return;
+        
+        if (this.config.position === "left") {
+            this.targetElement.parentElement.style.marginLeft = this.isOpen() ? "calc(" + this.config.width + " - " + this.config.navigationItemWidth + ")" : "0";
+        }
+        else if (this.config.position === "right") {
+            this.targetElement.parentElement.style.marginRight = this.isOpen() ? "calc(" + this.config.width + " - " + this.config.navigationItemWidth + ")" : "0";
+            this.targetElement.parentElement.style.marginLeft = this.isOpen() ? "calc(-" + this.config.width + " + " + this.config.navigationItemWidth + ")" : "0";
+        }
+        else if (this.config.position === "top") {
+            this.targetElement.parentElement.style.marginTop = this.isOpen() ? "calc(" + this.config.height + " - " + this.config.navigationItemHeight + ")" : "0";
+        }
+        else if (this.config.position === "bottom") {
+            this.targetElement.parentElement.style.marginBottom = this.isOpen() ? "calc(" + this.config.height + " - " + this.config.navigationItemHeight + ")" : "0";
         }
     },
     
@@ -210,7 +253,16 @@ Toolslide.prototype = {
     },
     
     onDocumentClick: function(event) {
-        if (!this.targetElement.contains(event.target)) {
+        if (!this.targetElement.contains(event.target) && !this.toggleButtonElement.contains(event.target)) {
+            this.close();
+        }
+    },
+    
+    onToggleButtonClick: function(event) {
+        if (!this.isOpen()) {
+            this.open();
+        }
+        else {
             this.close();
         }
     },

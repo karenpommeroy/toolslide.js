@@ -2,6 +2,7 @@
 	position: absolute;
     overflow: hidden;
     pointer-events: none;
+    z-index: 10;
 }
 
 .toolslide.ts-left {
@@ -22,6 +23,14 @@
 .toolslide.ts-bottom {
 	bottom: 0px;
     left: 0px;
+}
+
+.ts-embed-container {
+    transition: margin 0.5s ease;
+    -webkit-transition: margin 0.5s ease;                  
+    -moz-transition: margin 0.5s ease;                 
+    -o-transition: margin 0.5s ease;   
+    -ms-transition: margin 0.5s ease;
 }
 
 .toolslide .ts-container {
@@ -86,7 +95,6 @@
 	background-color: #fff;
 	color: #2f353f;
 	cursor: pointer;
-    padding: 0px 10px;
     border: 1px solid #2f353f;
     display: inline-block;
 }
