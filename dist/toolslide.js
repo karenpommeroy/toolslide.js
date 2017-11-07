@@ -16,7 +16,8 @@
 
 'use strict';
 	
-var TOOLSLIDE_CLASS = "toolslide";
+var TOOLSLIDE_CLASS = "toolslide",
+    TOOLSLIDE_EMBED_CONTAINER_CLASS = "ts-embed-container";
 
 var defaults = {
     position: "left",
@@ -24,6 +25,7 @@ var defaults = {
     width: "25%",
     startOpen: true,
     closeable: true,
+    minClosedSize: 0,
     toggleButton: "",
     embed: false,
     navigationItemWidth: "50px",
@@ -59,6 +61,7 @@ Toolslide.prototype = {
             throw new Error("Incorrect type: target element must be DOM node or string css selector");
         }
         this.targetElement.classList.add(TOOLSLIDE_CLASS);
+        if (this.config.embed) this.targetElement.parentElement.classList.add(TOOLSLIDE_EMBED_CONTAINER_CLASS);
         this.containerElement = this.targetElement.querySelector(".ts-container");
         this.contentElement = this.targetElement.querySelector(".ts-content-container");
         this.navElement = this.targetElement.querySelector(".ts-nav-container");
@@ -144,6 +147,7 @@ Toolslide.prototype = {
         this.fire("beforeOpen", [this.targetElement]);
         this.targetElement.classList.remove("closed");
         this.targetElement.classList.add("open");
+        this.containerElement.style.left = "";
         this.__updateEmbeding();
         this.fire("afterOpen", [this.targetElement]);
     },
@@ -152,6 +156,7 @@ Toolslide.prototype = {
         this.fire("beforeClose", [this.targetElement]);
         this.targetElement.classList.remove("open");
         this.targetElement.classList.add("closed");
+        this.containerElement.style.left = this.config.minClosedSize + "px";
         this.__updateEmbeding()
         this.fire("afterClose", [this.targetElement]);
     },
@@ -215,17 +220,17 @@ Toolslide.prototype = {
         if (!this.config.embed)  return;
         
         if (this.config.position === "left") {
-            this.targetElement.parentElement.style.marginLeft = this.isOpen() ? "calc(" + this.config.width + " - " + this.config.navigationItemWidth + ")" : "0";
+            this.targetElement.parentElement.style.marginLeft = this.isOpen() ? "calc(" + this.config.width + " - " + this.config.navigationItemWidth + ")" : this.config.minClosedSize + "px";
         }
         else if (this.config.position === "right") {
-            this.targetElement.parentElement.style.marginRight = this.isOpen() ? "calc(" + this.config.width + " - " + this.config.navigationItemWidth + ")" : "0";
-            this.targetElement.parentElement.style.marginLeft = this.isOpen() ? "calc(-" + this.config.width + " + " + this.config.navigationItemWidth + ")" : "0";
+            this.targetElement.parentElement.style.marginRight = this.isOpen() ? "calc(" + this.config.width + " - " + this.config.navigationItemWidth + ")" : this.config.minClosedSize + "px";
+            this.targetElement.parentElement.style.marginLeft = this.isOpen() ? "calc(-" + this.config.width + " + " + this.config.navigationItemWidth + ")" : this.config.minClosedSize + "px";
         }
         else if (this.config.position === "top") {
-            this.targetElement.parentElement.style.marginTop = this.isOpen() ? "calc(" + this.config.height + " - " + this.config.navigationItemHeight + ")" : "0";
+            this.targetElement.parentElement.style.marginTop = this.isOpen() ? "calc(" + this.config.height + " - " + this.config.navigationItemHeight + ")" : this.config.minClosedSize + "px";
         }
         else if (this.config.position === "bottom") {
-            this.targetElement.parentElement.style.marginBottom = this.isOpen() ? "calc(" + this.config.height + " - " + this.config.navigationItemHeight + ")" : "0";
+            this.targetElement.parentElement.style.marginBottom = this.isOpen() ? "calc(" + this.config.height + " - " + this.config.navigationItemHeight + ")" : this.config.minClosedSize + "px";
         }
     },
     
@@ -269,7 +274,7 @@ Toolslide.prototype = {
     },
     
     onDocumentClick: function(event) {
-        if (!this.targetElement.contains(event.target) && !this.toggleButtonElement.contains(event.target)) {
+        if (!this.targetElement.contains(event.target) && !(this.toggleButtonElement && this.toggleButtonElement.contains(event.target))) {
             this.close();
         }
     },
