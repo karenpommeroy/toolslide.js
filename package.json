@@ -3,7 +3,10 @@
   "version": "1.1.1",
   "description": "Minimalistic customizable sliding panel without jQuery",
   "main": "dist/toolslide.js",
-  "scripts": {},
+  "scripts": {
+    "build": "node ./node_modules/grunt/bin/grunt build",
+    "package": "node ./node_modules/grunt/bin/grunt package"
+  },
   "keywords": [
     "slide panel",
     "sliding panel",
