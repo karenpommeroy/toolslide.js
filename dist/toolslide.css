@@ -139,11 +139,11 @@
 .toolslide.ts-left.open .ts-container,
 .toolslide.ts-left .ts-content-item.active.slide,
 .toolslide.ts-left .ts-content-item.active.slidefade {
-	transform: translate(0,0);
-    -webkit-transform: translate(0,0);
-    -moz-transform: translate(0,0);
-    -o-transform: translate(0,0);
-    -ms-transform: translate(0,0);
+	transform: initial;
+    -webkit-transform: initial;
+    -moz-transform: initial;
+    -o-transform: initial;
+    -ms-transform: initial;
 }
 
 .toolslide.ts-left.closed .ts-container,
@@ -159,11 +159,11 @@
 .toolslide.ts-right.open .ts-container,
 .toolslide.ts-right .ts-content-item.active.slide,
 .toolslide.ts-right .ts-content-item.active.slidefade {
-	transform: translate(0,0);
-    -webkit-transform: translate(0,0);
-    -moz-transform: translate(0,0);
-    -o-transform: translate(0,0);
-    -ms-transform: translate(0,0);
+	transform: initial;
+    -webkit-transform: initial;
+    -moz-transform: initial;
+    -o-transform: initial;
+    -ms-transform: initial;
 }
 
 .toolslide.ts-right.closed .ts-container,
@@ -179,11 +179,11 @@
 .toolslide.ts-top.open .ts-container,
 .toolslide.ts-top .ts-content-item.active.slide,
 .toolslide.ts-top .ts-content-item.active.slidefade {
-	transform: translate(0,0);
-    -webkit-transform: translate(0,0);
-    -moz-transform: translate(0,0);
-    -o-transform: translate(0,0);
-    -ms-transform: translate(0,0);
+	transform: initial;
+    -webkit-transform: initial;
+    -moz-transform: initial;
+    -o-transform: initial;
+    -ms-transform: initial;
 }
 
 .toolslide.ts-top.closed .ts-container,
@@ -199,11 +199,11 @@
 .toolslide.ts-bottom.open .ts-container,
 .toolslide.ts-bottom .ts-content-item.active.slide,
 .toolslide.ts-bottom .ts-content-item.active.slidefade {
-	transform: translate(0,0);
-    -webkit-transform: translate(0,0);
-    -moz-transform: translate(0,0);
-    -o-transform: translate(0,0);
-    -ms-transform: translate(0,0);
+	transform: initial;
+    -webkit-transform: initial;
+    -moz-transform: initial;
+    -o-transform: initial;
+    -ms-transform: initial;
 }
 
 .toolslide.ts-bottom.closed .ts-container,
