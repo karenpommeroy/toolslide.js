@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 		comparisons: true,
 		booleans: true,
 		loops: true,
-		if_return: true
+		if_return: true,
 	};
 	
 	grunt.initConfig({
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
                 files: [{
                     "dist/toolslide.min.js": ["dist/toolslide.js"]
                 }],
-                compress: this.uglifyOptions
+                compress: this.uglifyOptions,
             }
         },
         
@@ -68,6 +68,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-cssmin");
 	grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("uglify-js");
     grunt.loadNpmTasks("grunt-umd");
     grunt.renameTask("clean", "_clean");
 
@@ -77,4 +78,5 @@ module.exports = function(grunt) {
     grunt.registerTask("default", buildTask);
     grunt.registerTask("clean", cleanTask);
     grunt.registerTask("build", buildTask);
+    grunt.registerTask("package", buildTask);
 };

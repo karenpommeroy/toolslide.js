@@ -1,8 +1,9 @@
 (function (root, factory) {
+  if (root === undefined && window !== undefined) root = window;
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module unless amdModuleId is set
     define([], function () {
-      return (factory());
+      return (root['toolslide'] = factory());
     });
   } else if (typeof module === 'object' && module.exports) {
     // Node. Does not work with strict CommonJS, but
@@ -30,6 +31,8 @@ var defaults = {
     embed: false,
     navigationItemWidth: "50px",
     navigationItemHeight: "50px",
+    navigationOffsetX: "0px",
+    navigationOffsetY: "0px",
     autoclose: false,
     autocloseDelay: 5000,
     clickOutsideToClose: true,
@@ -74,32 +77,57 @@ Toolslide.prototype = {
     },
     
     setHeight: function(height) {
-        this.targetElement.style.height = height;
-        if (this.config.position === "top"  || this.config.position === "bottom") {
-            this.containerElement.style.height = "calc(100% - " + this.navElement.clientHeight + "px)";
+        this.targetElement.style.height = this.__getSizeString(height);
+        if (this.config.position === "bottom") {
+            this.containerElement.style.height = "calc(100% + " + this.__getSizeString(this.navElement.clientHeight) + ")";
+        }
+        else if (this.config.position === "top") {
+            this.containerElement.style.height = "calc(100% - " + this.__getSizeString(this.navElement.clientHeight) + ")";
         }
     },
     
     setWidth: function(width) {
-        this.targetElement.style.width = width;
-        if (this.config.position === "left"  || this.config.position === "right") {
-            this.containerElement.style.width = "calc(100% - " + this.navElement.clientWidth + "px)";
+        this.targetElement.style.width = this.__getSizeString(width);
+        if (this.config.position === "left") {
+            this.containerElement.style.width = "calc(100% - " + this.__getSizeString(this.navElement.clientWidth) + ")";
+        }
+        else if (this.config.position === "right") {
+            this.containerElement.style.width = "100%";
         }
     },
     
     setNavigationSize: function(width, height) {
         if (this.config.position === "left"  || this.config.position === "right") {
-            this.navElement.style.width = width;
+            this.navElement.style.width = this.__getSizeString(width);
         }
         if (this.config.position === "top"  || this.config.position === "bottom") {
-            this.navElement.style.height = height;
+            this.navElement.style.height = this.__getSizeString(height);
         }
         var navItems = this.navElement.querySelectorAll(".ts-nav-item"),
             l = navItems.length;
             
         while (l--) {
-            navItems[l].style.width = width;
-            navItems[l].style.height = height;
+            navItems[l].style.width = this.__getSizeString(width);
+            navItems[l].style.height = this.__getSizeString(height);
+        }
+    },
+
+    setNavigationOffset: function(offsetX, offsetY) {
+        if (this.config.position === "left") {
+            this.navElement.style.left = "calc(" + this.__getSizeString(this.navElement.offsetLeft) + " + " + this.__getSizeString(offsetX) + " - " + this.__getSizeString(this.navElement.offsetWidth) + " - " + this.__getSizeString(this.navElement.marginLeft) + ")";
+            this.navElement.style.top = "calc(" + this.__getSizeString(this.navElement.offsetTop) + " + " + this.__getSizeString(offsetY) + ")";
+        }
+        else if (this.config.position === "right") {
+            this.navElement.style.left = "calc(" + this.__getSizeString(this.navElement.offsetLeft) + " + " + this.__getSizeString(offsetX) + ")";
+            this.navElement.style.top = "calc(" + this.__getSizeString(this.navElement.offsetTop) + " + " + this.__getSizeString(offsetY) + ")";
+        }
+        else if (this.config.position === "top") {
+            this.navElement.style.left = "calc(" + this.__getSizeString(this.navElement.offsetLeft) + " + " + this.__getSizeString(offsetX) + ")";
+            this.navElement.style.top = "calc(" + this.__getSizeString(this.navElement.offsetTop) + " + " + this.__getSizeString(offsetY) + " - " + this.__getSizeString(this.navElement.offsetHeight) + " - " + this.__getSizeString(this.navElement.marginTop) + ")";
+        }
+        else if (this.config.position === "bottom") {
+            this.navElement.style.left = "calc(" + this.__getSizeString(this.navElement.offsetLeft) + " + " + this.__getSizeString(offsetX) + ")";
+            this.navElement.style.top = "calc(" + this.__getSizeString(this.navElement.offsetTop) + " + " + this.__getSizeString(offsetY) + ")";
         }
     },
     
@@ -156,7 +184,7 @@ Toolslide.prototype = {
         this.fire("beforeClose", [this.targetElement]);
         this.targetElement.classList.remove("open");
         this.targetElement.classList.add("closed");
-        this.containerElement.style.left = this.config.minClosedSize + "px";
+        this.containerElement.style.left = this.__getSizeString(this.config.minClosedSize);
         this.__updateEmbeding()
         this.fire("afterClose", [this.targetElement]);
     },
@@ -182,15 +210,18 @@ Toolslide.prototype = {
         this.setPosition(config.position);
         config.startOpen ? this.open() : this.close();
         this.setNavigationSize(config.navigationItemWidth, config.navigationItemHeight);
-        
         this.setWidth(config.width);
         this.setHeight(config.height);
+        this.setNavigationOffset(config.navigationOffsetX, config.navigationOffsetY);
         this.__updateEmbeding();
         if (config.autoclose) {
             this.setAutoClose();
         }
         this.__setAnimations(config.animations);
-        this.setActiveById(this.config.activePanel || this.__getContentPanel(0));			
+        if (typeof this.config.activePanel === "number") 
+            this.setActiveByIndex(this.config.activePanel)
+        else
+            this.setActiveById(this.config.activePanel || this.__getContentPanel(0));
     },
     
     __attachEventListeners: function() {
@@ -209,7 +240,7 @@ Toolslide.prototype = {
             document.addEventListener("click", this.onDocumentClick.bind(this), false);
         }
         if (this.config.toggleButton) {
-            this.toggleButtonElement = document.querySelector(this.config.toggleButton);
+            this.toggleButtonElement = this.__isDOMElement(this.config.toggleButton) ? this.config.toggleButton : document.querySelector(this.config.toggleButton);
             if (this.toggleButtonElement) {
                 this.toggleButtonElement.onclick = this.onToggleButtonClick.bind(this);
             }
@@ -219,18 +250,24 @@ Toolslide.prototype = {
     __updateEmbeding: function() {
         if (!this.config.embed)  return;
         
+        const resolvedWidth = this.__getSizeString(this.config.width);
+        const resolvedHeight = this.__getSizeString(this.config.height);
+        const resolvedNavItemWidth = this.__getSizeString(this.config.navigationItemWidth);
+        const resolvedNavItemHeight = this.__getSizeString(this.config.navigationItemHeight);
+        const resolvedMinClosedSize = this.__getSizeString(this.config.minClosedSize);
+
         if (this.config.position === "left") {
-            this.targetElement.parentElement.style.marginLeft = this.isOpen() ? "calc(" + this.config.width + " - " + this.config.navigationItemWidth + ")" : this.config.minClosedSize + "px";
+            this.targetElement.parentElement.style.marginLeft = this.isOpen() ? "calc(" + resolvedWidth + " - " + resolvedNavItemWidth + ")" : resolvedMinClosedSize;
         }
         else if (this.config.position === "right") {
-            this.targetElement.parentElement.style.marginRight = this.isOpen() ? "calc(" + this.config.width + " - " + this.config.navigationItemWidth + ")" : this.config.minClosedSize + "px";
-            this.targetElement.parentElement.style.marginLeft = this.isOpen() ? "calc(-" + this.config.width + " + " + this.config.navigationItemWidth + ")" : this.config.minClosedSize + "px";
+            this.targetElement.parentElement.style.marginRight = this.isOpen() ? "calc(" + resolvedWidth + " - " + resolvedNavItemWidth + ")" : resolvedMinClosedSize;
+            this.targetElement.parentElement.style.marginLeft = this.isOpen() ? "calc(-" + resolvedWidth + " + " + resolvedNavItemWidth + ")" : resolvedMinClosedSize;
         }
         else if (this.config.position === "top") {
-            this.targetElement.parentElement.style.marginTop = this.isOpen() ? "calc(" + this.config.height + " - " + this.config.navigationItemHeight + ")" : this.config.minClosedSize + "px";
+            this.targetElement.parentElement.style.marginTop = this.isOpen() ? "calc(" + resolvedHeight + " - " + resolvedNavItemHeight + ")" : resolvedMinClosedSize;
         }
         else if (this.config.position === "bottom") {
-            this.targetElement.parentElement.style.marginBottom = this.isOpen() ? "calc(" + this.config.height + " - " + this.config.navigationItemHeight + ")" : this.config.minClosedSize + "px";
+            this.targetElement.parentElement.style.marginBottom = this.isOpen() ? "calc(" + resolvedHeight + " - " + resolvedNavItemHeight + ")" : resolvedMinClosedSize;
         }
     },
     
@@ -240,7 +277,8 @@ Toolslide.prototype = {
         }
         
         if (animations.replace) {
-            var animation = this.__getAnimationFromString(animations.replace);
+            var isObject = typeof animations.replace === "object" && animations.replace !== null;
+            var animation = isObject ? animations.replace : this.__getAnimationFromString(animations.replace);
             var allContentPanels = this.contentElement.children;
             var l = allContentPanels.length;
             while (l--) {
@@ -249,7 +287,8 @@ Toolslide.prototype = {
             }
         }
         if (animations.toggle) {
-            var animation = this.__getAnimationFromString(animations.toggle);
+            var isObject = typeof animations.replace === "object" && animations.replace !== null;
+            var animation = isObject ? animations.toggle : this.__getAnimationFromString(animations.toggle);
             this.__setVendorStyleProperty(this.targetElement, "transition", this.__getTransitionFromAnimation(animation));
         }
     },
@@ -355,6 +394,10 @@ Toolslide.prototype = {
     
     __capitalizeFirstLetter: function(input) {
         return input.charAt(0).toUpperCase() + input.slice(1);
+    },
+
+    __getSizeString: function(size) {
+        return size + (typeof size === "number" ? "px" : "");
     }
 };
 

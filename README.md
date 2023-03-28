@@ -17,12 +17,12 @@ Several quick start options are available:
 #### Download the latest build
 
 ###### Development
- * [toolslide.js](https://raw.githubusercontent.com/karenpommeroy/toolslide.js/master/dist/js/toolslide.js)
- * [toolslide.css](https://raw.githubusercontent.com/karenpommeroy/toolslide.js/master/dist/css/toolslide.css)
+ * [toolslide.js](https://raw.githubusercontent.com/karenpommeroy/toolslide.js/master/dist/toolslide.js)
+ * [toolslide.css](https://raw.githubusercontent.com/karenpommeroy/toolslide.js/master/dist/toolslide.css)
 
 ###### Production
- * [toolslide.min.js](https://raw.githubusercontent.com/karenpommeroy/toolslide.js/master/dist/js/toolslide.min.js)
- * [toolslide.min.css](https://raw.githubusercontent.com/karenpommeroy/toolslide.js/master/dist/css/toolslide.min.css)
+ * [toolslide.min.js](https://raw.githubusercontent.com/karenpommeroy/toolslide.js/master/dist/toolslide.min.js)
+ * [toolslide.min.css](https://raw.githubusercontent.com/karenpommeroy/toolslide.js/master/dist/toolslide.min.css)
 
 #### Install From Bower
 ```sh
@@ -80,7 +80,7 @@ ts-target   | Specifies id of a target panel triggered with this navigation item
 #### Initialization
 All you need to do is invoke toolslide on an element:
 ```javascript
-var myToolslide = toolslide("#elementId", options);
+var myToolslide = toolslide(elemment, options);
 ```
 You can also initialize with css selector string:
 
@@ -103,7 +103,7 @@ The structure of an options object is as follows:
 
 ```css
 {
-  position: left",
+  position: "left",
   height: "100%",
   width: "300px",
   startOpen: true,
@@ -111,37 +111,55 @@ The structure of an options object is as follows:
   autoclose: false,
   autocloseDelay: 5000,
   clickOutsideToClose: true,
+  minClosedSize: 0,
+  toggleButton: "",
+  embed: false,
+  navigationItemWidth: "50px",
+  navigationItemHeight: "50px",
+  navigationOffsetX: "0px",
+  navigationOffsetY: "0px",
   animations: {
     replace: "crossfade 0.5s ease-in-out",
     toggle: "slide 0.5s ease",
   },
   listeners: {
-    open: function(panel) {},
-    close: function(panel) {},
-    toggle: function(oldContent, newContent) {}
+    beforeOpen: function(panel) {},
+    afterOpen: function(panel) {},
+    berforeClose: function(panel) {},
+    afterClose: function(panel) {},
+    beforeToggle: function(oldContent, newContent) {}
+    afterToggle: function(oldContent, newContent) {}
   }
 ```
 
 Here is the explanation of options object:
 
-Option     | Type    | Description                         | Examples
------------| ------- | ----------------------------------- | -----------
-position   | string  | Position of the panel on the screen | "top", "bottom", "left", "right"
-height     | string  | Panel height                        | "200px", "20%"
-width      | string  | Panel width                         | "200px", "20%"
-startOpen  | boolean | Open panel after initialization     | true, false
-closeable  | boolean | Allow panel to be closed (by clicking active navigation element)           | true, false
-autoclose  | boolean | Allow panel to be auto closed (only when mouse cursor is outside)          | true, false
-autocloseDelay  | int | Auto close delay in miliseconds           | 5000
-clickOutsideToClose  | boolean | Allow panel to be closed when clicked outside           | true, false
-animations.replace   | string  | Animation used when changing active panel | "crossfade 0.5s ease-in-out", "slide 1s ease", "slidefade 2s ease-in-out"
-animations.toggle   | string  | Animation used when panel is opened/closed | "slide 0.5s ease"
-listeners.beforeOpen | function | Callback fired before panel is opened | function (panel) {...}
-listeners.afterOpen | function | Callback fired after panel is opened | function (panel) {...}
-listeners.beforeClose | function | Callback fired before panel is closed | function (panel) {...}
-listeners.afterClose | function | Callback fired after panel is closed | function (panel) {...}
-listeners.beforeToggle | function | Callback fired before active content is changed | function (old, new) {...}
-listeners.afterToggle | function | Callback fired after active content is changed | function (old, new) {...}
+Option                 | Type            | Description                                                       | Examples
+---------------------- | --------------- | ----------------------------------------------------------------- | -----------
+activePanel            | string, Element | Position of the panel on the screen                        | "#elementId"
+position               | string          | Position of the panel on the screen                               | "top", "bottom", "left", "right"
+height                 | string          | Panel height                                                      | "200px", "20%"
+width                  | string          | Panel width                                                       | "200px", "20%"
+startOpen              | boolean         | Open panel after initialization                                   | true, false
+closeable              | boolean         | Allow panel to be closed (by clicking active navigation element)  | true, false
+autoclose              | boolean         | Allow panel to be auto closed (only when mouse cursor is outside) | true, false
+autocloseDelay         | int             | Auto close delay in miliseconds                                   | 5000
+clickOutsideToClose    | boolean         | Allow panel to be closed when clicked outside                     | true, false
+minClosedSize          | int             | Minimum panel size when closed                                    | 0
+toggleButton           | string          | Id of an element used as external toggle button                   | ""
+embed                  | boolean         | Whether to embed panel within container or overlay it             | true, false
+navigationItemWidth    | string, number  | Width of the navigation element                                   | "50px", "5%"
+navigationItemHeight   | string, number  | Height of the navigation element                                  | "50px", "5%"
+navigationOffsetX      | string, number  | Horizontal offset of the navigation elements container            | "0px", "5%"
+navigationOffsetY      | string, number  | Vertical offset of the navigation elements container              | "0px", "5%"
+animations.replace     | string          | Animation used when changing active panel                         | "slide 1s ease", "slidefade 2s ease-in", { type: "crossfade", easing: "ease", speed: ".5s" }
+animations.toggle      | string          | Animation used when panel is opened/closed                        | "slide 0.5s ease", { type: "slide", easing: "ease", speed: "1s" }
+listeners.beforeOpen   | function        | Callback fired before panel is opened                             | function (panel) {...}
+listeners.afterOpen    | function        | Callback fired after panel is opened                              | function (panel) {...}
+listeners.beforeClose  | function        | Callback fired before panel is closed                             | function (panel) {...}
+listeners.afterClose   | function        | Callback fired after panel is closed                              | function (panel) {...}
+listeners.beforeToggle | function        | Callback fired before active content is changed                   | function (old, new) {...}
+listeners.afterToggle  | function        | Callback fired after active content is changed                    | function (old, new) {...}
 
 ## Methods
 Methods are called on toolslide instances. You shoud save the instances to variable to have further access to it.

@@ -1,6 +1,5 @@
 .toolslide {
 	position: absolute;
-    overflow: hidden;
     pointer-events: none;
     z-index: 10;
 }
@@ -27,7 +26,7 @@
 
 .ts-embed-container {
     transition: margin 0.5s ease;
-    -webkit-transition: margin 0.5s ease;                  
+    -webkit-transition: margin 0.5s ease;
     -moz-transition: margin 0.5s ease;                 
     -o-transition: margin 0.5s ease;   
     -ms-transition: margin 0.5s ease;

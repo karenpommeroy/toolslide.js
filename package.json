@@ -1,8 +1,9 @@
 {
   "name": "toolslide.js",
-  "version": "1.1.3",
+  "version": "1.2.4",
   "description": "Minimalistic customizable sliding panel without jQuery",
   "main": "dist/toolslide.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "node ./node_modules/grunt/bin/grunt build",
     "package": "node ./node_modules/grunt/bin/grunt package"
@@ -23,12 +24,11 @@
     "url": "https://github.com/karenpommeroy/toolslide.js"
   },
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-cssmin": "^2.2.0",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-uglify": "^3.0.1",
-    "grunt-umd": "^2.4.0"
-  },
-  "dependencies": {}
+    "grunt": "^1.6.1",
+    "grunt-contrib-clean": "^2.0.1",
+    "grunt-contrib-concat": "^2.1.0",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-uglify": "^5.2.2",
+    "grunt-umd": "^3.0.0"
+  }
 }

@@ -52,9 +52,10 @@
 		height: "150px",
 		width: "100%",
 		startOpen: false,
+        navigationOffsetX: "-10%",
 		animations: {
-			replace: "slidefade 1.0s ease-in-out",
-			toggle: "slide 0.5s ease",
+			replace: { type: "slidefade", easing: "ease-in-out", speed: "1.0s" },
+			toggle: { type: "slide", easing: "ease", speed: ".5s" },
 		}
 	});
 </script>
